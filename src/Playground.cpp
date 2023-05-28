@@ -11,6 +11,8 @@ void Playground::init()
 	}
 }
 
+//memset Option gibt es auch
+
 //Fügt den Zeiger in das area - Attribut an Index [x] [y] der Position ein.
 void Playground::addGameObject(GameObject* go_ptr)
 {
@@ -88,6 +90,8 @@ GameObject* Playground::getGameObjectAtPos(int x, int y)
 
 bool Playground::isFree(int x, int y)
 {
+	//nicht so verschachteln, weniger if Abfragen
+
 	bool free;
 
 	if(inbound(x, y))
@@ -106,6 +110,8 @@ bool Playground::isFree(int x, int y)
 
 bool Playground::isWall(int x, int y)
 {
+	//nicht so verschachteln, weniger if Abfragen
+
 	bool wall;
 
 	if(inbound(x, y))
@@ -124,6 +130,8 @@ bool Playground::isWall(int x, int y)
 
 bool Playground::isPickup(int x, int y)
 {
+	//nicht so verschachteln, weniger if Abfragen
+
 	bool pickup = false;
 
 	if(inbound(x, y))
