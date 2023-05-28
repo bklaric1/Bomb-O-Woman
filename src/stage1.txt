@@ -1,0 +1,13 @@
+###############
+#  B RR RB    #
+#X# #R#R# # #O#
+#   R RRRR    #
+# #R#R# # # # #
+# RRR RRRRR R #
+#R#R#R#R#R# # #
+# RRRRRRRRR R #
+# #R#R#R#R#R# #
+# RRRRRRRR B  #
+# # # # # # # #
+#   R RRR     #
+###############
