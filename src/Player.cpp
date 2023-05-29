@@ -177,7 +177,6 @@ void Player::proceed()
 std::string Player::to_string()
 {
 	//wenn es nicht geht, versuch append
-	std::string playerString;
 	std::stringstream ss;
 	std::string status;
 
@@ -194,16 +193,15 @@ std::string Player::to_string()
 	}
 
 	ss << "***********************" << "\n";
-	ss << "* Player " << player_number << " - " << symbol << "          *" << "\n";
+	ss << "* Player " << player_number << " - " << symbol << "        *" << "\n";
 	ss << "***********************" << "\n";
-	ss << "* Status:    " << status << " *" << "\n";
-	ss << "* Timer:	    " << timer << "        *" << "\n";
-	ss << "* Lives:	    " << lives << "         *" << "\n";
-	ss << "* Score:	    " << score << "       *" << "\n";
+	ss << "* Status:    " << status << "*" << "\n";
+	ss << "* Timer:     " << timer << "        *" << "\n";
+	ss << "* Lives:     " << lives << "        *" << "\n";
+	ss << "* Score:     " << score << "        *" << "\n";
 	ss << "***********************" << "\n";
 
-	ss >> playerString;
-	return playerString;
+	return ss.str();
 }
 
 int Player::getPlayerNumber()
