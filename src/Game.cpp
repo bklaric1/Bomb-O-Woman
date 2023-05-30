@@ -3,6 +3,8 @@
 #include "Console.h"
 #include <string>
 #include <sstream>
+#include <fstream>
+//#include "stage1.txt"
 
 void Game::drawLogo()
 {
@@ -143,13 +145,15 @@ void Game::drawScoreboard()
 
 	Cursor::bewegen(3, 4);
 	std::cout<<"~Scoreboard~"<<std::endl;
+	//int zaehler = 0; //nur wenn wir wollen, dass kein Player2 gibts oder was ähnliches
 
 	for(int i = 0; i < 4; i++)
 	{
 		if(player[i]->getScore() > 0)
 		{
-			Cursor::bewegen(3, 6 + i);
+			Cursor::bewegen(3, 6 + i);//- zaehler
 			std::cout<<"Player "<< i + 1 << ": "<<player[i]->getScore()<<std::endl;
+	//		zaehler++;
 		}
 	}
 
@@ -188,5 +192,7 @@ void Game::run()
 
 Game::Game()
 {
-
+	//erstens txt in string umwandeln
+	//std::string egal;
+	//init(egal);
 }

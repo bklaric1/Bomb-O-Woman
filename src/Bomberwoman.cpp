@@ -36,9 +36,10 @@ int main()
 	Console::verstecken();
 	test.drawLegend();
 	test.player[0] = new Player(1);
-	test.player[0]->score = 20; //nur Probe, muss Player.h zurück zum protected nehmen
+	test.player[0]->score = 20; //nur Probe, muss Player.h zurück zum protected wiedernehmen
 	test.player[1] = new Player(2);
 	test.player[2] = new Player(3);
+	test.player[2]->score = 300;
 	test.player[3] = new Player(4);
 	test.drawPlayerStats(1);
 	test.drawPlayerStats(2);
