@@ -139,6 +139,19 @@ void Game::drawPlayerStats(int player_number)
 
 void Game::drawScoreboard()
 {
+	deleteLogo();
+
+	Cursor::bewegen(3, 4);
+	std::cout<<"~Scoreboard~"<<std::endl;
+
+	for(int i = 0; i < 4; i++)
+	{
+		if(player[i]->getScore() > 0)
+		{
+			Cursor::bewegen(3, 6 + i);
+			std::cout<<"Player "<< i + 1 << ": "<<player[i]->getScore()<<std::endl;
+		}
+	}
 
 }
 

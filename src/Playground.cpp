@@ -197,7 +197,7 @@ Position Playground::getRandomFreePosition()
 
 bool Playground::inbound(int x, int y)
 {
-	if(((x > 0) && (x < Configuration::PLAYGROUND_XSIZE)) && ((y > 0) && (y < Configuration::PLAYGROUND_YSIZE)))
+	if(((x >= 0) && (x <= Configuration::PLAYGROUND_XSIZE)) && ((y >= 0) && (y <= Configuration::PLAYGROUND_YSIZE)))
 	{
 		return true;
 	}

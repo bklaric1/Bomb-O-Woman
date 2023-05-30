@@ -29,20 +29,17 @@ int main()
 		{
 			Console::zeichne_punkt(x, y, '#');
 		}
-	}
-	*/
-	Player player1(1);
-	Player player2(2);
-	Player player3(3);
-	Player player4(4);
+	}*/
+
 	Game test;
 
 	Console::verstecken();
 	test.drawLegend();
-	test.player[0] =  &player1;
-	test.player[1] =  &player2;
-	test.player[2] =  &player3;
-	test.player[3] =  &player4;
+	test.player[0] = new Player(1);
+	test.player[0]->score = 20; //nur Probe, muss Player.h zurück zum protected nehmen
+	test.player[1] = new Player(2);
+	test.player[2] = new Player(3);
+	test.player[3] = new Player(4);
 	test.drawPlayerStats(1);
 	test.drawPlayerStats(2);
 	test.drawPlayerStats(3);
@@ -54,6 +51,10 @@ int main()
 	//#include <thread>
 	//std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	test.deleteLogo();
+	usleep(3000000);
+	test.drawLogo();
+	usleep(3000000);
+	test.drawScoreboard();
 
 	getchar();
 return 0;

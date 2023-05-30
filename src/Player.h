@@ -6,7 +6,8 @@
 
 class Player : public GameObject
 {
-protected:
+//protected:
+public:
 	bool ghost;
 	bool trap;
 	bool explosive;
