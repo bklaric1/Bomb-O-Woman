@@ -18,9 +18,11 @@ public: //auf private setzen später
 	std::vector<GameObject*> bombs;
 	Playground* pg = NULL;
 
-	void drawLogo();
+	void drawSmallLogo();
 
-	void deleteLogo();
+	void drawBigLogo();
+
+	void deleteSmallLogo();
 
 	void drawLegend();
 

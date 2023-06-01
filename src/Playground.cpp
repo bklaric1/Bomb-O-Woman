@@ -1,5 +1,10 @@
 #include "Playground.h"
 
+Playground::Playground()
+{
+	init();
+}
+
 void Playground::init()
 {
 	for(int i = 0; i < Configuration::PLAYGROUND_XSIZE; i++)
@@ -39,16 +44,12 @@ void Playground::removeGameObject(Position pos)
 	if((area[pos.getX()][pos.getY()] != NULL) && (area[pos.getX()][pos.getY()]->top_ptr == NULL))
 	{
 		area[pos.getX()][pos.getY()] = NULL;
-		//draw?
-		//Console::zeichne_punkt(pos.getX(), pos.getY(), ' ');
+		Console::zeichne_punkt(pos.getX() + Configuration::PLAYGROUND_OFFSETX, pos.getY() + Configuration::PLAYGROUND_OFFSETY, ' ');
 	}
 	else if((area[pos.getX()][pos.getY()] != NULL) && (area[pos.getX()][pos.getY()]->top_ptr != NULL))
 	{
 		area[pos.getX()][pos.getY()]->top_ptr = NULL;
 		area[pos.getX()][pos.getY()]->draw(false);
-	}
-	else{
-		return;
 	}
 }
 
@@ -170,7 +171,7 @@ void Playground::draw()
 
 			else if(area[i][j] == NULL)
 			{
-				Console::zeichne_punkt(i, j, ' ');
+				Console::zeichne_punkt(i + Configuration::PLAYGROUND_OFFSETX, j + Configuration::PLAYGROUND_OFFSETY, ' ');
 			}
 		}
 	}

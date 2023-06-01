@@ -7,7 +7,8 @@ GameObject::GameObject() : symbol(' '), playground(NULL) {}
 
 GameObject::GameObject(Position p, char symbol, Playground* playground)
 {
-	this->p = p;
+	this->p.setX(p.getX());
+	this->p.setY(p.getY());
 	this->symbol = symbol;
 	this->playground = playground;
 }
@@ -20,8 +21,8 @@ void GameObject::draw(bool offset)
 	}
 	else if(offset == true)
 	{
-		int x = this->p.getX() + Configuration::PLAYGROUND_OFFSETX + Configuration::PLAYGROUND_BORDERWIDTH;
-		int y = this->p.getY() + Configuration::PLAYGROUND_OFFSETY + Configuration::PLAYGROUND_BORDERWIDTH;
+		int x = this->p.getX() + Configuration::PLAYGROUND_OFFSETX;// + Configuration::PLAYGROUND_BORDERWIDTH;
+		int y = this->p.getY() + Configuration::PLAYGROUND_OFFSETY;// + Configuration::PLAYGROUND_BORDERWIDTH;
 
 		Console::zeichne_punkt(x, y, this->symbol);
 	}
@@ -34,7 +35,6 @@ void GameObject::draw(bool offset)
 
 void GameObject::setPosition(Position p)
 {
-	//this->p = p;
 	this->p.setX(p.getX());
 	this->p.setY(p.getY());
 }

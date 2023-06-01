@@ -8,16 +8,26 @@
 #include <string>
 #include <sstream>
 
-Player::Player(int player_number) : GameObject()
+Player::Player(int player_number, char symbol) : GameObject()
 {
 	this->ghost = false;
 	this->trap = false;
 	this->explosive = false;
 	this->superbomb = false;
 	this->player_number = player_number;
-	this->lives = 0;
+	this->lives = Configuration::PLAYER_LIVES;
 	this->score = 0;
 	this->timer = 0;
+
+	if(symbol == Configuration::GAMEOBJECT_PLAYER_1)
+	{
+		this->symbol = symbol;
+	}
+
+	else if(symbol == Configuration::GAMEOBJECT_PLAYER_2)
+	{
+		this->symbol = symbol;
+	}
 }
 
 //Funktion wertet aus ob eine Bewegung in die Richtung m�glich ist
@@ -31,19 +41,19 @@ bool Player::move(int direction)
 
 		if(direction == Configuration::GAMEOBJECT_MOVE_UP)
 		{
-			p.setX(p.getX() - 1);
+			p.setY(p.getY() - 1);
 		}
 		else if(direction == Configuration::GAMEOBJECT_MOVE_DOWN)
 		{
-			p.setX(p.getX() + 1);
+			p.setY(p.getY() + 1);
 		}
 		else if(direction == Configuration::GAMEOBJECT_MOVE_LEFT)
 		{
-			p.setY(p.getY() - 1);
+			p.setX(p.getX() - 1);
 		}
 		else if(direction == Configuration::GAMEOBJECT_MOVE_RIGHT)
 		{
-			p.setY(p.getY() + 1);
+			p.setX(p.getX() + 1);
 		}
 
 		if(playground->isPickup(p.getX(), p.getY()))
@@ -52,6 +62,8 @@ bool Player::move(int direction)
 		}
 
 		playground->addGameObject(this);
+
+		return true;
 	}
 
 	return false;
@@ -179,26 +191,30 @@ std::string Player::to_string()
 	//wenn es nicht geht, versuch append
 	std::stringstream ss;
 	std::string status;
+	int zahl;
 
 	if(explosive == true)
 	{
+		zahl = 9;
 		status = "Explosive";
 	}
 	else if(ghost == true)
 	{
-		status = "Ghost    ";
+		zahl = 5;
+		status = "Ghost";
 	}
 	else{
-		status = "Trap     ";
+		zahl = 4;
+		status = "Trap";
 	}
 
 	ss << "***********************" << "\n";
 	ss << "* Player " << player_number << " - " << symbol << "        *" << "\n";
 	ss << "***********************" << "\n";
-	ss << "* Status:    " << status << "*" << "\n";
-	ss << "* Timer:     " << timer << "        *" << "\n";
-	ss << "* Lives:     " << lives << "        *" << "\n";
-	ss << "* Score:     " << score << "        *" << "\n";
+	ss << "* Status:    " << status << std::string(9 - zahl, ' ') << "*\n";
+	ss << "* Timer:     " << timer <<std::string(9 - std::to_string(timer).length(), ' ')<< "*\n";
+	ss << "* Lives:     " << lives <<std::string(9 - std::to_string(lives).length(), ' ')<< "*\n";
+	ss << "* Score:     " << score <<std::string(9 - std::to_string(score).length(), ' ')<< "*\n";
 	ss << "***********************" << "\n";
 
 	return ss.str();

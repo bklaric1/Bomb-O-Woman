@@ -32,6 +32,7 @@ void Position::setY(int y)
 
 std::string Position::to_string() const
 {
+	return "uff";
 	std::stringstream ss;
 	std::string returnString;
 	ss<<"Position: "<< "x = "<<x<<"  y = "<<y<<std::endl;
@@ -71,7 +72,7 @@ Position::Position(int x, int y)
 
 Position::~Position()
 {
-	free(this);
+	//free(this);
 }
 
 std::ostream& operator<<(std::ostream& os, const Position& rhs)

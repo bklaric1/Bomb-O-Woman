@@ -6,8 +6,7 @@
 
 class Player : public GameObject
 {
-//protected:
-public:
+private:
 	bool ghost;
 	bool trap;
 	bool explosive;
@@ -23,7 +22,7 @@ public:
 public:
 
 	//Initialisiert alle Attribute
-	Player(int player_number);
+	Player(int player_number, char symbol);
 
 	//Funktion wertet aus ob eine Bewegung in die Richtung m�glich ist
 	//und f�r diese mit alle AKtionen aus.
@@ -60,6 +59,6 @@ public:
 	int getScore();
 
 	//�berschreibt die Funktion der Basisklasse 
-	void draw(bool offset){};
+	//void draw(bool offset){};
 };
 #endif
