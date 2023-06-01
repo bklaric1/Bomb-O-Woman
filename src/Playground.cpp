@@ -49,7 +49,7 @@ void Playground::removeGameObject(Position pos)
 	else if((area[pos.getX()][pos.getY()] != NULL) && (area[pos.getX()][pos.getY()]->top_ptr != NULL))
 	{
 		area[pos.getX()][pos.getY()]->top_ptr = NULL;
-		area[pos.getX()][pos.getY()]->draw(false);
+		area[pos.getX()][pos.getY()]->draw(true);
 	}
 }
 
