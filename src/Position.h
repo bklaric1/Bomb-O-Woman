@@ -1,9 +1,3 @@
-/*
- * Position.h
- *
- *  Created on: 05.05.2023
- *      Author: bklaric
- */
 
 #ifndef POSITION_H_
 #define POSITION_H_

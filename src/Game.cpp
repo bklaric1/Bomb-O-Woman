@@ -1,13 +1,12 @@
-#include "Cursor.h"
+
 #include "Game.h"
+#include "Cursor.h"
 #include "Console.h"
+#include "SimpleInput.h"
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "SimpleInput.h"
 #include <unistd.h>
-#include "Playground.h"
-#include "Position.h"
 
 void Game::drawSmallLogo()
 {
@@ -60,7 +59,7 @@ void Game::drawBigLogo()
 	Cursor::bewegen(17, 5);
 	std::cout<<"             .' .\"     '-."<<std::endl;
 	Cursor::bewegen(17, 6);
-	std::cout<<"            /__/   BW     \\      *"<<std::endl;
+	std::cout<<"            /__/          \\      *"<<std::endl;
 	Cursor::bewegen(17, 7);
 	std::cout<<"           ====_____     __|     :"<<std::endl;
 	Cursor::bewegen(17, 8);
@@ -110,13 +109,25 @@ void Game::drawBigLogo()
 	Cursor::bewegen(17, 30);
 	std::cout<<"------------------------------------------------"<<std::endl;
 
-	usleep(1000000);
+	sleep(3);
 	Console::leeren();
 }
 
 void Game::drawLegend()
 {
-	Cursor::bewegen(18, 2);
+	Cursor::bewegen(20, 4);
+	std::cout<<Configuration::GAMEOBJECT_PLAYER_1<<" - Player 1 "<<std::endl;
+	Cursor::bewegen(20, 6);
+	std::cout<<Configuration::GAMEOBJECT_PLAYER_2<<" - Player 2 "<<std::endl;
+	Cursor::bewegen(20, 8);
+	std::cout<<Configuration::GAMEOBJECT_BOMB<<" - Bomb"<<std::endl;
+	Cursor::bewegen(20, 10);
+	std::cout<<Configuration::GAMEOBJECT_ROCK<<" - Rock"<<std::endl;
+	Cursor::bewegen(20, 12);
+	std::cout<<Configuration::GAMEOBJECT_WALL<<" - Wall"<<std::endl;
+
+	/*
+	 * 	Cursor::bewegen(18, 2);
 	std::cout<<Configuration::GAMEOBJECT_PLAYER_1<<" - Player 1 "<<std::endl;
 	Cursor::bewegen(18, 3);
 	std::cout<<Configuration::GAMEOBJECT_PLAYER_2<<" - Player 2 "<<std::endl;
@@ -140,6 +151,7 @@ void Game::drawLegend()
 	std::cout<<Configuration::GAMEOBJECT_ROCK<<" - Rock"<<std::endl;
 	Cursor::bewegen(18, 13);
 	std::cout<<Configuration::GAMEOBJECT_WALL<<" - Wall"<<std::endl;
+	 */
 }
 
 void Game::drawPlayerStats(int player_number)
@@ -213,22 +225,19 @@ void Game::drawPlayerStats(int player_number)
 
 void Game::drawScoreboard()
 {
-	//deleteLogo();
 	Console::leeren();
 
 	Cursor::bewegen(35, 11);
 	std::cout<<"~Scoreboard~"<<std::endl;
 	Cursor::bewegen(35, 12);
 	std::cout<<"------------"<<std::endl;
-	//int zaehler = 0; //nur wenn wir wollen, dass kein Player2 gibts oder was ähnliches
 
 	for(int i = 0; i < 3; i++)
 	{
 		if(player[i]->getScore() > 0)
 		{
-			Cursor::bewegen(35, 15 + i);//- zaehler
+			Cursor::bewegen(35, 15 + i);
 			std::cout<<"Player "<< i + 1 << ": "<<player[i]->getScore()<<std::endl;
-	//		zaehler++;
 		}
 	}
 
@@ -237,23 +246,14 @@ void Game::drawScoreboard()
 void Game::init(std::string filename)
 {
 	Console::leeren();
-	std::ifstream stagefile;//("../src/stage1.txt");
+	std::ifstream stagefile;
 	pg = new Playground();
 	std::string line;
-
 
 	int x = 0;
 	int y = 0;
 
 	stagefile.open("/home/bklaric01/eclipse-workspace/BomberWoman/Debug/stage1.txt");
-/*
-	if (stagefile.is_open()) {
-		std::cout << "Yippie" << std::endl;
-	} else {
-		std::cout << "Buh!" << std::endl;
-	}
-	*/
-
 
 	if(stagefile.is_open())
 	{
@@ -262,14 +262,6 @@ void Game::init(std::string filename)
 			for(int x = 0; x < line.length(); x++)
 			{
 				char object = line.at(x);
-
-				//GameObject* wall_ptr = new GameObject(/*Position(x, y), object, pg*/);
-				//wall_ptr->setPosition(Position());
-				// std::cout << Position().to_string();
-				//std::cout << wall_ptr << wall_ptr->getPosition().to_string() << std::endl;;
-				//wall.push_back(wall_ptr);
-				//pg->addGameObject(wall_ptr);
-				//std::cout << object;
 
 				if(object == Configuration::GAMEOBJECT_PLAYER_1)
 				{
@@ -306,7 +298,6 @@ void Game::init(std::string filename)
 
 			}
 			y++;
-			// std::cout << std::endl;
 		}
 	}
 	else{
@@ -322,33 +313,19 @@ void Game::init(std::string filename)
 
 bool Game::allPlayersAlive()
 {
-	int lebendigeSpieler;
-
 	for(int i = 0; i < 3; i++)
 	{
 		if(player[i]->getLives() > 0)
 		{
 			return true;
-			//lebendigeSpieler++;
 		}
 	}
 
 	return false;
-/*
-	if(lebendigeSpieler > 0)
-	{
-		return true;
-	}
-	else{
-		return false;
-	}
-	*/
 }
 
 void Game::run()
 {
-//    drawBigLogo();
-
     while(allPlayersAlive())
     {
         if(player[0] != NULL)
@@ -384,20 +361,12 @@ void Game::run()
         }
 
     }
-    //drawScoreboard();
+    drawScoreboard();
 }
 
 Game::Game()
 {
+	Console::verstecken();
 	drawBigLogo();
-	sleep(3);
 	init("stage1.txt");
 }
-
-
-/*
-		for(int y = 0 + Configuration::PLAYGROUND_OFFSETY; y < Configuration::PLAYGROUND_YSIZE + Configuration::PLAYGROUND_OFFSETY; y++)
-		{
-			for(int x = 0 + Configuration::PLAYGROUND_OFFSETX; y < Configuration::PLAYGROUND_XSIZE + Configuration::PLAYGROUND_OFFSETX; x++)
-			{
- */

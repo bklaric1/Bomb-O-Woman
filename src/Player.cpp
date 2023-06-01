@@ -34,9 +34,8 @@ Player::Player(int player_number, char symbol) : GameObject()
 //und f�r diese mit alle AKtionen aus.
 bool Player::move(int direction)
 {
-	if(!(isMoveValid(direction)))
+	if((isMoveValid(direction)))
 	{
-		//draw?
 		playground->removeGameObject(this);
 
 		if(direction == Configuration::GAMEOBJECT_MOVE_UP)
@@ -77,8 +76,8 @@ bool Player::action()
 		explosive = true;
 		timer = Configuration::BOMB_TIMER;
 
-		this->bomb_ptr->setPosition(getPosition());
-		this->top_ptr->setPosition(getPosition());
+		playground->addGameObject(bomb_ptr);
+		this->top_ptr = bomb_ptr;
 
 		return true;
 	}
@@ -100,19 +99,19 @@ bool Player::isMoveValid(int direction)
 
 	if(direction == Configuration::GAMEOBJECT_MOVE_UP)
 	{
-		newX--;
+		newY--;
 	}
 	else if(direction == Configuration::GAMEOBJECT_MOVE_DOWN)
 	{
-		newX++;
+		newY++;
 	}
 	else if(direction == Configuration::GAMEOBJECT_MOVE_LEFT)
 	{
-		newY--;
+		newX--;
 	}
 	else if(direction == Configuration::GAMEOBJECT_MOVE_RIGHT)
 	{
-		newY++;
+		newX++;
 	}
 
 	if((playground->isFree(newX, newY)) || (playground->isPickup(newX, newY)))
@@ -198,14 +197,9 @@ std::string Player::to_string()
 		zahl = 9;
 		status = "Explosive";
 	}
-	else if(ghost == true)
-	{
-		zahl = 5;
-		status = "Ghost";
-	}
 	else{
-		zahl = 4;
-		status = "Trap";
+		zahl = 6;
+		status = "Normal";
 	}
 
 	ss << "***********************" << "\n";
@@ -251,9 +245,6 @@ void Player::processPickup()
 	{
 		pickup->setPosition(playground->getRandomFreePosition());
 	}
-
-	delete pickup;
-	//TRAP + GHOST
 }
 
 int Player::getLives()

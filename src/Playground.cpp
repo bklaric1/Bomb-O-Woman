@@ -64,13 +64,15 @@ GameObject* Playground::collectGameObject(Position* pos_ptr)
 		}
 		else if((area[pos_ptr->getX()][pos_ptr->getY()] != NULL) && (area[pos_ptr->getX()][pos_ptr->getY()]->top_ptr == NULL))
 		{
+			GameObject* go_ptr = area[pos_ptr->getX()][pos_ptr->getY()];
 			removeGameObject(area[pos_ptr->getX()][pos_ptr->getY()]->p);
-			return area[pos_ptr->getX()][pos_ptr->getY()];
+			return go_ptr;
 		}
 		else if((area[pos_ptr->getX()][pos_ptr->getY()] != NULL) && (area[pos_ptr->getX()][pos_ptr->getY()]->top_ptr != NULL))
 		{
+			GameObject* go_ptr = area[pos_ptr->getX()][pos_ptr->getY()]->top_ptr;
 			removeGameObject(area[pos_ptr->getX()][pos_ptr->getY()]->top_ptr);
-			return area[pos_ptr->getX()][pos_ptr->getY()]->top_ptr;
+			return go_ptr;
 		}
 	}
 
@@ -117,7 +119,8 @@ bool Playground::isWall(int x, int y)
 
 	if(inbound(x, y))
 	{
-		if(area[x][y]->symbol == Configuration::GAMEOBJECT_WALL)
+		GameObject* go_ptr = getGameObjectAtPos(x, y);
+		if((go_ptr->symbol == Configuration::GAMEOBJECT_WALL) && (go_ptr != nullptr))
 		{
 			wall = true;
 		}
@@ -214,7 +217,7 @@ bool Playground::isLOS(Position* pos1_ptr, Position* pos2_ptr)
 	//X-Positionen sind gleich, Y-Richtung wird überprüft
 	if(pos1_ptr->getX() == pos2_ptr->getX())
 	{
-		for(int i = 0; abs(pos1_ptr->getY() - pos2_ptr->getY()) + 1; ++i)
+		for(int i = 0; i < abs(pos1_ptr->getY() - pos2_ptr->getY()) + 1; ++i)
 		{
 			isWall(pos1_ptr->getX(), i);
 
@@ -233,7 +236,7 @@ bool Playground::isLOS(Position* pos1_ptr, Position* pos2_ptr)
 	//Y-Position sind gleich, X-Richtung wird überprüft
 	else if(pos1_ptr->getY() == pos2_ptr->getY())
 	{
-		for(int i = 0; abs(pos1_ptr->getX() - pos2_ptr->getX()) + 1; ++i)
+		for(int i = 0; i < abs(pos1_ptr->getX() - pos2_ptr->getX()) + 1; ++i)
 		{
 			isFree(pos1_ptr->getY(), i);
 
