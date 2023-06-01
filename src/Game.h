@@ -11,7 +11,7 @@
 
 class Game
 {
-public: //auf private setzen später
+private:
 	Player* player[3];
 	std::vector<GameObject*> rocks;
 	std::vector<GameObject*> wall;

@@ -220,7 +220,6 @@ void Game::drawPlayerStats(int player_number)
 			y++;
 		}
 	}
-
 }
 
 void Game::drawScoreboard()
@@ -240,7 +239,6 @@ void Game::drawScoreboard()
 			std::cout<<"Player "<< i + 1 << ": "<<player[i]->getScore()<<std::endl;
 		}
 	}
-
 }
 
 void Game::init(std::string filename)
@@ -253,7 +251,7 @@ void Game::init(std::string filename)
 	int x = 0;
 	int y = 0;
 
-	stagefile.open("/home/bklaric01/eclipse-workspace/BomberWoman/Debug/stage1.txt");
+	stagefile.open("stage1.txt");
 
 	if(stagefile.is_open())
 	{
@@ -295,14 +293,13 @@ void Game::init(std::string filename)
 					bombs.push_back(bomb_ptr);
 					pg->addGameObject(bomb_ptr);
 				}
-
 			}
 			y++;
 		}
 	}
 	else{
 		std::cout<<"Error opening"<<std::endl;
-		std::cout<<" text file !"<<std::endl;
+		std::cout<<" text file!"<<std::endl;
 		return;
 	}
 
@@ -313,7 +310,7 @@ void Game::init(std::string filename)
 
 bool Game::allPlayersAlive()
 {
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < sizeof(player); i++)
 	{
 		if(player[i]->getLives() > 0)
 		{
@@ -336,7 +333,7 @@ void Game::run()
         		player[0]->action();
         	}
 
-        	else{
+        	else if(i != 'x'){
             player[0]->move(i);
         	}
 
